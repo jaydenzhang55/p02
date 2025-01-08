@@ -1,10 +1,10 @@
 ## InstaBook By H1N1
 
 ## Team Members Roles:
-- **Jayden Zhang (PM)**: 
-- **Margie Cao**: User Authentication, Functions/Search Bar, Front-end (HTML)
-- **Danny Huang**: Setting up Python, SQLite3, and Tailwind environments, Watchlists, Front-end (CSS + Tailwind)
-- **Suhana Kumar**: Setting up Python, SQLite3, and Tailwind environments, Watchlists, Front-end (CSS + Tailwind)
+- **Jayden Zhang (PM)**: General Functionalities + Reels
+- **Margie Cao**: General Functionalities + Profiles
+- **Danny Huang**: General Functionalities + Messages
+- **Suhana Kumar**: General Functionalities + Search
 ## Description:
 
 ### A Social Media Platform
