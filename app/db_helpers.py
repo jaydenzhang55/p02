@@ -35,6 +35,9 @@ def getId(username):
 def getHash(username):
     return cursor.execute(f"SELECT password FROM users WHERE username='{username}'").fetchone()[0]
 
+def getPhoto(username):
+    return cursor.execute(f"SELECT photo FROM users WHERE username='{username}'").fetchone()[0]
+
 #error?
 def hashPassword(password):
     bytes = password.encode("utf-8")
