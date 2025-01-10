@@ -17,15 +17,17 @@ def home():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if (session.get('username') != None):
-        return redirect(url_for("signup"))
+    if (session.get('username') == None):
+       return redirect(url_for("signup"))
     try:
         if request.method == "POST" and db.validateUser(request.form.get("username"), request.form.get("pw")):
             session["username"] = request.form.get("username")
             session["name"] = db.getName(session["username"])
             session["password"] = request.form.get("pw")
-            return render_template("index.html")
+            print('success')
+            return render_template("homePage.html")
     except:
+        print("yapper")
         return render_template("signUp.html")
     return render_template("signIn.html")
 
@@ -46,12 +48,12 @@ def signup():
         print(f"Name: {name}, Username: {username}, Password: {password}")  # Debugging output
 
         if name and username and password:
+            print(f"Name: {name}, Username: {username}, Password: {password}")  # Debugging output
             session["name"] = name
             session["username"] = username
             session["password"] = password
             db.addUser(name, username, password)
             return redirect(url_for("login"))
-    
     return render_template("signUp.html")
 
 if __name__ == "__main__":
