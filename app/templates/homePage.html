@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Clone</title>
+    <title>Instabook</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -12,19 +12,15 @@
     <!-- Sidebar -->
     <div class="flex h-screen">
         <nav class="w-1/4 min-w-[260px] flex flex-col p-5">
-            <h1 class="text-white text-3xl font-bold mb-8">Instagram</h1>
+            <h1 class="text-white text-3xl font-bold mb-8">Instabook</h1>
             <ul class="space-y-6">
                 <li class="flex items-center space-x-4">
                     <span class="text-xl">🏠</span>
-                    <a href="#" class="text-lg">Home</a>
+                    <a href="/" class="text-lg">Home</a>
                 </li>
                 <li class="flex items-center space-x-4">
                     <span class="text-xl">🔍</span>
-                    <a href="#" class="text-lg">Search</a>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <span class="text-xl">📷</span>
-                    <a href="#" class="text-lg">Explore</a>
+                    <a href="/search" class="text-lg">Search</a>
                 </li>
                 <li class="flex items-center space-x-4">
                     <span class="text-xl">🎥</span>
@@ -43,54 +39,48 @@
                     <a href="#" class="text-lg">Create</a>
                 </li>
                 <li class="flex items-center space-x-4">
-                    <img src="https://via.placeholder.com/30" class="rounded-full" alt="Profile">
+                    <img src="{{ url_for('static', filename='images/default.svg') }}" class="size-5" alt="Profile"/>
                     <a href="#" class="text-lg">Profile</a>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <span class="text-xl">🤖</span>
-                    <a href="#" class="text-lg">AI Studio</a>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <span class="text-xl">🔗</span>
-                    <a href="#" class="text-lg">Threads</a>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <span class="text-xl">⋮</span>
-                    <a href="#" class="text-lg">More</a>
                 </li>
             </ul>
         </nav>
 
-        <!-- Main Content -->
-        <main class="flex-1 p-6">
-            <div class="flex justify-between items-center">
-                <h2 class="text-xl font-bold">Find friends and accounts you like</h2>
-                <button class="bg-blue-600 px-4 py-2 rounded-md">Next</button>
+        <div class="flex-1">
+            <div class="flex-1 p-6 h-10">
+                <p>Welcome, {{ username }}!</p>
+                <img src="{{ profilePicture }}">
             </div>
 
-            <!-- Search Bar -->
-            <div class="mt-6">
-                <input type="text" placeholder="Search"
-                    class="w-full bg-gray-800 p-2 rounded-md text-white focus:outline-none">
-            </div>
+            <!-- Main Content -->
+            <div class="flex-1 p-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold">Find friends and accounts you like</h2>
+                </div>
 
-            <!-- Recommendations -->
-            <ul class="mt-8 space-y-6">
-                <li class="flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <img src="https://via.placeholder.com/50" class="rounded-full" alt="Profile">
-                        <div>
-                            <p class="font-bold">Username</p>
-                            <p class="text-gray-400 text-sm">Instagram recommended</p>
+                <!-- Search Bar -->
+                <div class="mt-6">
+                    <input type="text" placeholder="Search"
+                        class="w-full bg-gray-800 p-2 rounded-md text-white focus:outline-none">
+                </div>
+
+                <!-- Recommendations -->
+                <ul class="mt-8 space-y-6">
+                    <li class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <img src="https://via.placeholder.com/50" class="rounded-full" alt="Profile">
+                            <div>
+                                <p class="font-bold">Username</p>
+                                <p class="text-gray-400 text-sm">Instabook recommended</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-center">
-                        <button class="w-6 h-6 bg-white rounded-full flex justify-center items-center">✔</button>
-                    </div>
-                </li>
+                        <div class="flex items-center">
+                            <button class="w-6 h-6 bg-white rounded-full flex justify-center items-center">✔</button>
+                        </div>
+                    </li>
 
-            </ul>
-        </main>
+                </ul>
+            </div>
+        </div>
     </div>
 </body>
 

@@ -56,6 +56,22 @@ def signup():
             return redirect(url_for("login"))
     return render_template("signUp.html")
 
+@app.route("/search", methods=['GET', 'POST'])
+def search():
+    return
+
+@app.route("/reels", methods=['GET', 'POST'])
+def reels():
+    return
+
+@app.route("/profile", methods=['GET', 'POST'])
+def profile():
+    return
+
+@app.route("/messages", methods=['GET', 'POST'])
+def messages():
+    return
+
 if __name__ == "__main__":
     app.debug = True
     app.run()

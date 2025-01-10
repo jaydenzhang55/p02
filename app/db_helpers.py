@@ -47,4 +47,4 @@ def validatePassword(hash, password):
     print("Matches Hash: " + str(bcrypt.checkpw(password.encode("utf-8"), hash)))
     return bcrypt.checkpw(password.encode("utf-8"), hash)
 
-#userTable()
+# userTable()
