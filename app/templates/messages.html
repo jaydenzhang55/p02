@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instabook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../static/js/instabook.js"></script>
+</head>
+
+<body class="bg-black text-white font-sans">
+    <!-- Sidebar -->
+    <div class="flex h-screen">
+        <nav class="w-1/8 min-w-[240px] flex flex-col p-5 bg-gray-900">
+            <h1 class="text-white text-3xl font-bold mb-8">Instabook</h1>
+            <ul class="space-y-6">
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">🏠</span>
+                    <a href="/" class="text-lg">Home</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">🔍</span>
+                    <a href="/search" class="text-lg">Search</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">🎥</span>
+                    <a href="#" class="text-lg">Reels</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">✉️</span>
+                    <a href="#" class="text-lg">Messages</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">❤️</span>
+                    <a href="#" class="text-lg">Notifications</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">➕</span>
+                    <a href="#" class="text-lg">Create</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <img src="{{ url_for('static', filename='images/default.svg') }}" class="size-5" alt="Profile"/>
+                    <a href="#" class="text-lg">Profile</a>
+                </li>
+            </ul>
+        </nav>
+        <div>
+                    
+        </div>
+    </div>
+</body>
+
+</html>
