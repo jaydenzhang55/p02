@@ -6,3 +6,6 @@ Decided on a project idea. Individually worked on parts of the design document a
 
 jaydenZ, margieC, dannyH, suhanaK -- 2024-01-09 8:00:
 Reworked on the design document. Clarified a few sections within the design doc such as components will work [removed vagueness] and added "note:" to some sections for further clarity. We also fixed the component map to resemble a more detailed interaction. 
+
+jaydenZ -- 2024-01-10 6:00:
+Worked on the basic login and signup features of the website. Made sure to put the requirements.txt into place.

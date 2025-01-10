@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Signup</title>
+</head>
+
+<body class="font-sans bg-blue-800 text-white">
+    <div class="grid place-content-center static space-y-8 py-10 max-w-xl m-auto my-20 rounded-3xl ">
+
+        <!-- Main heading for the signup page -->
+        <h1 class="text-5xl"> Create an Account! </h1>
+
+        <!-- Display flash messages, if any (e.g., username already exists) -->
+        {% if message %}
+        <p class="bg-red-300 min-w-full p-2 text-red-700 text-center"> {{ message }}</p>
+        {% endif %}
+
+        <!-- Signup form for creating a new account -->
+        <form class="" method="POST">
+            <label for="name">Name:</label>
+            <br>
+            <input class="border border-solid p-1 min-w-full text-blue-800 rounded-md" type="text" id="name" name="name"
+                placeholder="Name" required>
+            <br><br>
+
+            <label for="username">Username:</label>
+            <br>
+            <input class="border border-solid p-1 min-w-full text-blue-800 rounded-md" type="text" id="username"
+                name="username" placeholder="Username" required>
+            <br><br>
+
+            <label for="pw">Password:</label>
+            <br>
+            <input class="border border-solid p-1 min-w-full text-blue-800 rounded-md" type="password" id="pw" name="pw"
+                placeholder="Password" required>
+            <br><br>
+
+            <!-- Submit button to create the account -->
+            <button
+                class="rounded-2xl mx-auto min-w-full px-5 py-1 transition ease-in-out mt-2 border border-solid border-white px-3 py-2 hover:ring-4 hover:-translate-y-1 hover:scale-110 hover:border-blue-300 hover:bg-sky-300 hover:text-blue-800"
+                type="submit">Create Account</button>
+        </form>
+
+        <br>
+
+        <h2> Already have an account? <a href="/login" class="hover:underline text-sky-400"> Log in </a></h2>
+
+    </div>
+
+</body>
+
+</html>
