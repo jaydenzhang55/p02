@@ -136,10 +136,11 @@ def uploadReels():
     return "something went wrong pls try again later" 
 
 
-
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():
-    return
+    if not signed_in():
+        return redirect(url_for('login'))
+    return render_template("profile.html", name = session["name"])
 
 @app.route("/messages", methods=['GET', 'POST'])
 def messages():
