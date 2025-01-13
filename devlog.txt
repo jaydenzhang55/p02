@@ -12,3 +12,6 @@ Worked on the basic login and signup features of the website. Made sure to put t
 
 jaydenZ -- 2024-01-10 11:00:
 Added homepage.html and fixed some login / signup bugs.
+
+jaydenZ -- 2024-01-12 23:00:
+Implimented reels, but ran into a payment issue for one of the APIs. Need to discuss further.
