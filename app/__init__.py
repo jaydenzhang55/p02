@@ -102,8 +102,9 @@ def signup():
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
-    return
-
+    return render_templae("search.html")
+                          
+                          
 @app.route("/reels", methods=['GET', 'POST'])
 def reels():
     videos = db.getVideos()
