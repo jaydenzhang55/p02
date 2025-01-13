@@ -4,6 +4,7 @@ import urllib.request
 import json
 from flask import Flask, render_template, request, redirect, url_for, session
 import db_helpers as db
+import requests
 
 app = Flask(__name__)
 secret = os.urandom(32)
@@ -24,6 +25,7 @@ def login():
             session["username"] = request.form.get("username")
             session["name"] = db.getName(session["username"])
             session["password"] = request.form.get("pw")
+            session["userID"] = db.getId(request.form.get("username"))
             print('success')
             return render_template("homePage.html")
     except:
@@ -62,7 +64,36 @@ def search():
 
 @app.route("/reels", methods=['GET', 'POST'])
 def reels():
-    return
+    videos = db.getVideos()
+    print(videos)
+
+    return render_template("reels.html", videos=videos)
+
+@app.route('/upload', methods=['GET', 'POST'])
+def uploadReels():
+    response = requests.get("https://api.gofile.io/servers")
+    data = response.json()
+    if data['status'] == 'ok':
+        serverLink = f"https://{data['data']['servers'][0]['name']}.gofile.io"       
+
+    video = request.files['video']
+    headers = {'Authorization': 'Bearer t2dUKihjfIfgUSp9u0naxtRR9KmhroXW'}
+    folderID={'folderId': "734bfa21-03ba-4763-a0ce-82276b74fb7b"}
+    print(serverLink)
+
+    url = f"{serverLink}/uploadFile"
+    response = requests.post(url, files={'file': video}, verify=False, data=folderID, headers=headers)
+        
+    gofile_data = response.json()
+
+    if gofile_data['status'] == 'ok':
+        gofileUrl = gofile_data['data']['downloadPage']
+        db.uploadVideo(session.get("userID"), gofileUrl)
+        print(db.getVideos())
+        return redirect(url_for("reels"))
+    return "something went wrong pls try again later" 
+
+
 
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():

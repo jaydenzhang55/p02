@@ -12,6 +12,10 @@ def userTable():
     cursor.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT NOT NULL, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL)")
     db.commit()
 
+def videoTable():
+    cursor.execute("CREATE TABLE videos(id INTEGER PRIMARY KEY, userId INTEGER, videoUrl TEXT)")
+    db.commit()
+
 def addUser(name, username, password):
     cursor.execute("INSERT INTO users(name, username, password) VALUES (?, ?, ?)", (name, username, hashPassword(password)))
     db.commit()
@@ -47,4 +51,14 @@ def validatePassword(hash, password):
     print("Matches Hash: " + str(bcrypt.checkpw(password.encode("utf-8"), hash)))
     return bcrypt.checkpw(password.encode("utf-8"), hash)
 
-# userTable()
+def uploadVideo(userID, gofileURL):
+    cursor.execute("INSERT INTO videos (userId, videoUrl) VALUES (?, ?)", (userID, gofileURL))
+    db.commit()
+
+def getVideos():
+    cursor.execute("SELECT videos.videoUrl, users.name FROM videos JOIN users ON videos.userId = users.id")
+    reels = cursor.fetchall()
+    return reels
+
+#userTable()
+#videoTable()
