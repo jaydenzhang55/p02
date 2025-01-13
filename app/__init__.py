@@ -4,7 +4,7 @@ H1N1
 SoftDev
 P02 - Instabook
 Time Spent:
-Target Ship Date: 2025-01-17
+Target Ship Date: 2025-01-15
 '''
 
 import os
@@ -18,6 +18,14 @@ import sqlite3
 app = Flask(__name__)
 secret = os.urandom(32)
 app.secret_key = secret
+
+keys = ["key_goFile.txt", "key_googleFireBase.txt"]
+for i in range(len(keys)):
+    file = open("app/keys/" + keys[i], "r")
+    content = file.read()
+    if content: ##if file isnt empty
+        keys[i] = content.replace("\n", "")
+    file.close()
 
 def key_check():
     for i in range(len(keys)):
@@ -104,7 +112,13 @@ def profile():
 
 @app.route("/messages", methods=['GET', 'POST'])
 def messages():
-    return
+    if not signed_in():
+        return redirect(url_for('login'))
+    allUsers = db.getAllUsers()
+    userlist = []
+    for users in allUsers:
+        userlist.append(users[0])
+    return render_template('messages.html', people=userlist)
 
 if __name__ == "__main__":
     app.debug = True

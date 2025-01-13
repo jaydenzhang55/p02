@@ -122,6 +122,21 @@ def getPhoto(username):
          db.close()
     return photo
 
+def getAllUsers():
+    db = sqlite3.connect(DB_FILE)
+    cur = db.cursor()
+    try:
+        users = cur.execute("SELECT username FROM users").fetchall()
+    except sqlite3.Error as e:
+        print(f"An error occurred: {e}")
+        users = None
+    finally: 
+         cur.close()
+         db.commit()
+         db.close()
+    return users
+
+
 #error?
 def hashPassword(password):
     bytes = password.encode("utf-8")
