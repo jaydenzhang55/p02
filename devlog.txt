@@ -19,6 +19,9 @@ Added GoFile API key, sorting out features of profile page
 jaydenZ -- 2024-01-10 11:00:
 Added homepage.html and fixed some login / signup bugs.
 
+suhanaK -- 2024-01-10 11:47:
+edited database to incorpate images
+
 dannyH -- 2024-01-12 19:41:
 working on messages through js, added api key for firebase
 
