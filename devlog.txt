@@ -9,3 +9,6 @@ Reworked on the design document. Clarified a few sections within the design doc 
 
 jaydenZ -- 2024-01-10 6:00:
 Worked on the basic login and signup features of the website. Made sure to put the requirements.txt into place.
+
+jaydenZ -- 2024-01-10 11:00:
+Added homepage.html and fixed some login / signup bugs.
