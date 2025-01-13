@@ -20,7 +20,7 @@ app = Flask(__name__)
 secret = os.urandom(32)
 app.secret_key = secret
 
-keys = ["key_goFile.txt", "key_googleFireBase.txt"]
+keys = ["key_goFile.txt", "key_googleFirebase.txt"]
 for i in range(len(keys)):
     file = open("app/keys/" + keys[i], "r")
     content = file.read()
