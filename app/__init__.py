@@ -106,6 +106,8 @@ def signup():
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
+    if not signed_in():
+        return redirect(url_for('login'))
     pics = db.getAllPhoto()
     allUsers = db.getAllUsers()
     pictureslist = []
