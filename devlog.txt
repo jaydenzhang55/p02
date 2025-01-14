@@ -39,3 +39,6 @@ worked on search html, update search py file
 
 jaydenZ -- 2024-01-14 11:42:
 Completed the first version of a web scraper. Needs more work to fully test if it works!
+
+suhanaK -- 2025-01-14 11:47:
+integrating js for search profile function
