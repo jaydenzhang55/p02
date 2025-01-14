@@ -106,7 +106,15 @@ def signup():
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
-    return render_templae("search.html")
+    pics = db.getAllPhoto()
+    allUsers = db.getAllUsers()
+    pictureslist = []
+    userlist = []
+    for users in allUsers:
+        userlist.append(users[0])
+    for pic in pics:
+        pitcureslist.append(pic[0])
+    return render_template('search.html', people=userlist, pictures=pictureslist, user=session['username'])
                           
                           
 @app.route("/reels", methods=['GET', 'POST'])

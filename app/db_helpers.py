@@ -102,6 +102,7 @@ def getId(username):
          db.commit()
          db.close()
     return Id
+
 def getHash(username):
     db = sqlite3.connect(DB_FILE)
     cur = db.cursor()
@@ -115,6 +116,20 @@ def getHash(username):
          db.commit()
          db.close()
     return Hash
+
+def getAllPhotos():
+    db = sqlite3.connect(DB_FILE)
+    cur = db.cursor()
+    try:
+        photos = cur.execute("SELECT photo FROM users").fetchall()
+    except sqlite2.Error as e:
+        print(f"An error occurred: {e}")
+        photos = None
+    finally:
+        cur.close()
+        db.commit()
+        db.close()
+    return photos
 
 def getPhoto(username):
     db = sqlite3.connect(DB_FILE)
@@ -143,6 +158,7 @@ def getAllUsers():
          db.commit()
          db.close()
     return users
+
 
 
 #error?
