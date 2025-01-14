@@ -15,6 +15,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, s
 import db_helpers as db
 import sqlite3
 import requests
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 secret = os.urandom(32)
@@ -123,8 +124,20 @@ def search():
 def reels():
     videos = db.getVideos()
     print(videos)
+    
+    if videos:
+        url = videos[0].videoURL
+        html = requests.get(url)
+        soup = BeautifulSoup(html.content, "html.parser")
+        scrapedVideos = results.find_all("videos")
+        listofUrls = []        
 
-    return render_template("reels.html", videos=videos)
+        for sV in scrapedVideos:
+            link = sV.find_all("source")
+            linkUrl = link["src"]
+            listofUrls.append(linkUrl)
+
+    return render_template("reels.html", videos=listofUrls)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def uploadReels():
