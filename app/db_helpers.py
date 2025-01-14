@@ -23,11 +23,11 @@ db.close()
 # User Helpers
 
 def userTable():
-    cursor.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT NOT NULL, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL)")
+    cur.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT NOT NULL, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL)")
     db.commit()
 
 def videoTable():
-    cursor.execute("CREATE TABLE videos(id INTEGER PRIMARY KEY, userId INTEGER, videoUrl TEXT)")
+    cur.execute("CREATE TABLE videos(id INTEGER PRIMARY KEY, userId INTEGER, videoUrl TEXT)")
     db.commit()
 
 def addUser(name, username, password):
@@ -102,6 +102,7 @@ def getId(username):
          db.commit()
          db.close()
     return Id
+
 def getHash(username):
     db = sqlite3.connect(DB_FILE)
     cur = db.cursor()
@@ -115,6 +116,20 @@ def getHash(username):
          db.commit()
          db.close()
     return Hash
+
+def getAllPhotos():
+    db = sqlite3.connect(DB_FILE)
+    cur = db.cursor()
+    try:
+        photos = cur.execute("SELECT photo FROM users").fetchall()
+    except sqlite2.Error as e:
+        print(f"An error occurred: {e}")
+        photos = None
+    finally:
+        cur.close()
+        db.commit()
+        db.close()
+    return photos
 
 def getPhoto(username):
     db = sqlite3.connect(DB_FILE)
@@ -145,6 +160,7 @@ def getAllUsers():
     return users
 
 
+
 #error?
 def hashPassword(password):
     bytes = password.encode("utf-8")
@@ -158,12 +174,16 @@ def validatePassword(hash, password):
     return bcrypt.checkpw(password.encode("utf-8"), hash)
 
 def uploadVideo(userID, gofileURL):
-    cursor.execute("INSERT INTO videos (userId, videoUrl) VALUES (?, ?)", (userID, gofileURL))
+    db = sqlite3.connect(DB_FILE)    
+    cur = db.cursor()
+    cur.execute("INSERT INTO videos (userId, videoUrl) VALUES (?, ?)", (userID, gofileURL))
     db.commit()
 
 def getVideos():
-    cursor.execute("SELECT videos.videoUrl, users.name FROM videos JOIN users ON videos.userId = users.id")
-    reels = cursor.fetchall()
+    db = sqlite3.connect(DB_FILE)
+    cur = db.cursor()
+    cur.execute("SELECT videos.videoUrl, users.name FROM videos JOIN users ON videos.userId = users.id")
+    reels = cur.fetchall()
     return reels
 
 #userTable()

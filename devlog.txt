@@ -33,3 +33,6 @@ Added readme for keys, explaining functionality and requirements for each
 
 margieC -- 2024-01-13 10:50:
 Started working on profile page, adding the proper redirects
+
+suhanaK -- 2024-01-13 11:47:
+worked on search html, update search py file
