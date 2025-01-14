@@ -11,7 +11,7 @@ import os
 import random
 import urllib.request
 import json
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
 import db_helpers as db
 import sqlite3
 import requests
@@ -27,6 +27,10 @@ for i in range(len(keys)):
     if content: ##if file isnt empty
         keys[i] = content.replace("\n", "")
     file.close()
+
+@app.route('/get-key')
+def get_key():
+    return send_from_directory('keys', 'key_googleFirebase.txt', as_attachment=False)
 
 def key_check():
     for i in range(len(keys)):
@@ -151,7 +155,7 @@ def messages():
     userlist = []
     for users in allUsers:
         userlist.append(users[0])
-    return render_template('messages.html', people=userlist)
+    return render_template('messages.html', people=userlist, user=session['username'])
 
 if __name__ == "__main__":
     app.debug = True

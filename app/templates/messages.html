@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instabook</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../static/js/instabook.js"></script>
+    <script type="module" src="../static/js/instabook.js"></script>
 </head>
 
 <body class="bg-black text-white font-sans">
+    <p data-user='{{user}}' id="user"></p>
     <!-- Sidebar -->
     <div class="flex flex-row h-screen">
         <nav class="w-1/8 min-w-[240px] flex flex-col p-5 bg-gray-900">
@@ -73,7 +74,9 @@
             <br>
             <ul id="searchResult" >
                 {% for person in people %}
-                    <li class="bg-white text-black hover:bg-sky-100 p-2">{{ person }}</li>
+                    {% if person != user %}
+                        <li class="bg-white text-black hover:bg-sky-100 p-2">{{ person }}</li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
