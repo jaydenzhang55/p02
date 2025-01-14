@@ -19,7 +19,7 @@ const firebaseConfig = {
   const messaging = getMessaging(app);
 
 document.addEventListener('DOMContentLoaded', function () {
-    
+
 localStorage.setItem('firebase_debug', 'true');
 //Messages JS
 let focusPerson = "";
@@ -39,7 +39,7 @@ let filterPeople = function(){
 
     Array.from(plist).forEach(person => {
         const personName = person.textContent.toLowerCase();
-        
+
         if (personName.includes(searchTerm)) {
             person.style.display = '';
         } else {
@@ -50,16 +50,24 @@ let filterPeople = function(){
 
 searchInput.addEventListener('input', filterPeople);
 
-const  addChatButton = document.getElementById('addChat');
+const addChatButton = document.getElementById('addChat');
+const findProfileButton = document.getElementById('findProfile');
+
 
 let showContactList = function(){
     const list = document.getElementById('Contact');
     list.style.display='';
 }
 
-addChatButton.addEventListener('click', showContactList)
+let showProfileList = function(){
+  const list = document.getElementById('Profile');
+  list.style.display = '';
+}
 
+addChatButton.addEventListener('click', showContactList)
 // adding chat
+findProfileButton.addEventListener('click', showProfileList)
+// adding profile to recently viewed
 
 let addChat = function(other) {
     let fireChat = createNewChat(other);
@@ -69,8 +77,13 @@ let addChat = function(other) {
     chat.setAttribute('id', fireChat.id)
     focusPerson = fireChat.id;
     chatlist.appendChild(chat);
-    const contact = document.getElementById('Contact');
+    const  = document.getElementById('Contact');
     contact.style.display='none';
+}
+
+let findProfile = function(other){
+  const profList = document.getElementById('profileList');
+  const prof = document.createElement('li');
 }
 
 let createNewChat = async function(other){
@@ -92,15 +105,15 @@ let createNewChat = async function(other){
 let getPastChats = async function(user){
     try {
         const chatsRef = collection(db, "chats");
-        
+
         const q = query(chatsRef, where("users", "array-contains", user));
         const chatSnapshot = await getDocs(q);
         const chatsList = chatSnapshot.docs.map(doc => ({
-          id: doc.id,        
-          ...doc.data(),     
+          id: doc.id,
+          ...doc.data(),
         }));
         return chatsList;
-        
+
       } catch (error) {
         console.error("Error fetching chats:", error);
       }
@@ -118,6 +131,7 @@ let displayPastChats = async function(){
         focusPerson = chat.id;
     })
 }
+
 
 displayPastChats();
 
