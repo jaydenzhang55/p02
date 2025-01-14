@@ -28,7 +28,7 @@ working on messages through js, added api key for firebase
 jaydenZ -- 2024-01-12 23:00:
 Implemented reels, but ran into a payment issue for one of the APIs. Need to discuss further.
 
-jaydenZ -- 2024-1-13 8:57:
+jaydenZ -- 2024-01-13 8:57:
 Added readme for keys, explaining functionality and requirements for each
 
 margieC -- 2024-01-13 10:50:
@@ -36,3 +36,6 @@ Started working on profile page, adding the proper redirects
 
 suhanaK -- 2024-01-13 11:47:
 worked on search html, update search py file
+
+jaydenZ -- 2024-01-14 11:42:
+Completed the first version of a web scraper. Needs more work to fully test if it works!
