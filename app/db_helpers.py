@@ -23,7 +23,7 @@ db.close()
 # User Helpers
 
 def userTable():
-    cur.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT NOT NULL, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL)")
+    cur.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT NOT NULL, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL, photo BLOB NOT NULL)")
     db.commit()
 
 def videoTable():
@@ -32,9 +32,10 @@ def videoTable():
 
 def addUser(name, username, password):
     try:
+        default = convertToBinaryData("./static/images/default.svg")
         db = sqlite3.connect(DB_FILE)
         cur = db.cursor()
-        cur.execute("INSERT INTO users (name, username, password) VALUES (?, ?, ?)", (name, username, password))
+        cur.execute("INSERT INTO users (name, username, password, photo) VALUES (?, ?, ?, ?)", (name, username, password, photo))
     except sqlite3.Error as e:
         print(f"Database error: {e}")
     finally:
