@@ -11,22 +11,27 @@ import os
 import random
 import urllib.request
 import json
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
 import db_helpers as db
 import sqlite3
 import requests
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 secret = os.urandom(32)
 app.secret_key = secret
 
-keys = ["key_goFile.txt", "key_googleFireBase.txt"]
+keys = ["key_goFile.txt", "key_googleFirebase.txt"]
 for i in range(len(keys)):
     file = open("app/keys/" + keys[i], "r")
     content = file.read()
     if content: ##if file isnt empty
         keys[i] = content.replace("\n", "")
     file.close()
+
+@app.route('/get-key')
+def get_key():
+    return send_from_directory('keys', 'key_googleFirebase.txt', as_attachment=False)
 
 def key_check():
     for i in range(len(keys)):
@@ -102,14 +107,37 @@ def signup():
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
-    return
-
+    if not signed_in():
+        return redirect(url_for('login'))
+    pics = db.getAllPhoto()
+    allUsers = db.getAllUsers()
+    pictureslist = []
+    userlist = []
+    for users in allUsers:
+        userlist.append(users[0])
+    for pic in pics:
+        pitcureslist.append(pic[0])
+    return render_template('search.html', people=userlist, pictures=pictureslist, user=session['username'])
+                          
+                          
 @app.route("/reels", methods=['GET', 'POST'])
 def reels():
     videos = db.getVideos()
     print(videos)
+    
+    if videos:
+        url = videos[0].videoURL
+        html = requests.get(url)
+        soup = BeautifulSoup(html.content, "html.parser")
+        scrapedVideos = results.find_all("videos")
+        listofUrls = []        
 
-    return render_template("reels.html", videos=videos)
+        for sV in scrapedVideos:
+            link = sV.find_all("source")
+            linkUrl = link["src"]
+            listofUrls.append(linkUrl)
+
+    return render_template("reels.html", videos=listofUrls)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def uploadReels():
@@ -136,10 +164,11 @@ def uploadReels():
     return "something went wrong pls try again later" 
 
 
-
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():
-    return
+    if not signed_in():
+        return redirect(url_for('login'))
+    return render_template("profile.html", name = session["name"])
 
 @app.route("/messages", methods=['GET', 'POST'])
 def messages():
@@ -149,7 +178,7 @@ def messages():
     userlist = []
     for users in allUsers:
         userlist.append(users[0])
-    return render_template('messages.html', people=userlist)
+    return render_template('messages.html', people=userlist, user=session['username'])
 
 if __name__ == "__main__":
     app.debug = True

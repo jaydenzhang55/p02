@@ -35,12 +35,8 @@
                     <a href="#" class="text-lg">Notifications</a>
                 </li>
                 <li class="flex items-center space-x-4">
-                    <span class="text-xl">➕</span>
-                    <a href="#" class="text-lg">Create</a>
-                </li>
-                <li class="flex items-center space-x-4">
                     <img src="{{ url_for('static', filename='images/default.svg') }}" class="size-5" alt="Profile"/>
-                    <a href="#" class="text-lg">Profile</a>
+                    <a href="/profile" class="text-lg">Profile</a>
                 </li>
                 <li class = "flex items-center space-x-4">
                     <form action="/logout" method="post">

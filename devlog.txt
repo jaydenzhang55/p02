@@ -4,11 +4,41 @@ Added Team Flag and other files to repo for tomorrow's deliverables.
 jaydenZ, margieC, dannyH, suhanaK -- 2024-01-07 23:13:
 Decided on a project idea. Individually worked on parts of the design document and added different files needed for the project.
 
+dannyH -- 2024-01-07 22:37
+Updated README.md with roster, roles, and project title
+
 jaydenZ, margieC, dannyH, suhanaK -- 2024-01-09 8:00:
 Reworked on the design document. Clarified a few sections within the design doc such as components will work [removed vagueness] and added "note:" to some sections for further clarity. We also fixed the component map to resemble a more detailed interaction. 
 
 jaydenZ -- 2024-01-10 6:00:
 Worked on the basic login and signup features of the website. Made sure to put the requirements.txt into place.
 
+margieC -- 2024-01-10 10:47:
+Added GoFile API key, sorting out features of profile page
+
 jaydenZ -- 2024-01-10 11:00:
 Added homepage.html and fixed some login / signup bugs.
+
+suhanaK -- 2024-01-10 11:47:
+edited database to incorpate images
+
+dannyH -- 2024-01-12 19:41:
+working on messages through js, added api key for firebase
+
+jaydenZ -- 2024-01-12 23:00:
+Implemented reels, but ran into a payment issue for one of the APIs. Need to discuss further.
+
+jaydenZ -- 2024-01-13 8:57:
+Added readme for keys, explaining functionality and requirements for each
+
+margieC -- 2024-01-13 10:50:
+Started working on profile page, adding the proper redirects
+
+suhanaK -- 2024-01-13 11:47:
+worked on search html, update search py file
+
+jaydenZ -- 2024-01-14 11:42:
+Completed the first version of a web scraper. Needs more work to fully test if it works!
+
+suhanaK -- 2025-01-14 11:47:
+integrating js for search profile function

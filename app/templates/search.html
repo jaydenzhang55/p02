@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instabook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instabook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../static/js/instabook.js"></script>
+</head>
+
+<body class="bg-black text-white font-sans">
+    <!-- Sidebar -->
+    <div class="flex flex-row h-screen">
+        <nav class="w-1/8 min-w-[240px] flex flex-col p-5 bg-gray-900">
+            <h1 class="text-white text-3xl font-bold mb-8">Instabook</h1>
+            <ul class="space-y-6">
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">🏠</span>
+                    <a href="/" class="text-lg">Home</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">🔍</span>
+                    <a href="/search" class="text-lg">Search</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">🎥</span>
+                    <a href="#" class="text-lg">Reels</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">✉️</span>
+                    <a href="/messages" class="text-lg">Messages</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">❤️</span>
+                    <a href="#" class="text-lg">Notifications</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <span class="text-xl">➕</span>
+                    <a href="#" class="text-lg">Create</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <img src="{{ url_for('static', filename='images/default.svg') }}" class="size-5" alt="Profile"/>
+                    <a href="#" class="text-lg">Profile</a>
+                </li>
+                <li class = "flex items-center space-x-4">
+                    <form action="/logout" method="post">
+                        <input type="submit" value="Log Out" name="logOut" class="text-lg text-white bg-transparent border-none cursor-pointer hover:bg-sky-300 hover:border-sky-500 rounded-xl px-4 py-2" />
+                    </form>
+                </li>
+            </ul>
+        </nav>
+        <div class="flex-1 bg-gray-800 p-5 min-w-1/5">
+            <div class="flex items-center justify-between mb-6">
+
+                <p class="text-white"> Search Bar</p>
+
+                <form>
+                    <input type="button" id="findProfile" class="bg-sky-500 text-white px-4 py-2 rounded-md" value="Find Profile">
+                </form>
+            </div>
+            <ul id="profileList">
+            </ul>
+        </div>
+
+        <div class="w-3/5 bg-gray-500 p-5
+        </div>
+
+        <div id="Profile" style="display:none" class="absolute bg-white w-1/3 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-72 p-5 rounded-xl">
+            <form>
+                <input type="input" id="search" placeholder="Search..." class="text-black p-2 w-full">
+            </form>
+            <br>
+            <ul id="searchResult" >
+                {% for pict in pictures %}
+                {% for person in people %}
+                    <li class="bg-white text-black hover:bg-sky-100 p-2">{{ pict, person }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

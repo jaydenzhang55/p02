@@ -1,0 +1,5 @@
+GoFile API: Used for the user to uploads files en masse to instagram reels. Basically, once a file is uploaded via a requests call, it posts it to the API and the API sends 
+it to a local folder that can only be accessed via the API key.
+
+Firebase Cloud Messaging API: Used for messaging between users within the application. Has multiple features like notifying the user and storage of previous messages. This API
+also requires an API key that manages all incoming texts and distributes them to the correct destination.
