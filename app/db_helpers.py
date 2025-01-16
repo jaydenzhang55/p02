@@ -15,12 +15,14 @@ CREATE TABLE IF NOT EXISTS users (
     name TEXT NOT NULL,
     username TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL
+    profilepic BLOB
 );
 ''')
 db.commit()
 db.close()
 
 # User Helpers
+
 
 def userTable():
     cur.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT NOT NULL, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL, photo BLOB NOT NULL)")
@@ -123,7 +125,7 @@ def getAllPhotos():
     db = sqlite3.connect(DB_FILE)
     cur = db.cursor()
     try:
-        photos = cur.execute("SELECT photo FROM users").fetchall()
+        photos = cur.execute("SELECT profilepic FROM users").fetchall()
     except sqlite2.Error as e:
         print(f"An error occurred: {e}")
         photos = None
@@ -136,16 +138,23 @@ def getAllPhotos():
 def getPhoto(username):
     db = sqlite3.connect(DB_FILE)
     cur = db.cursor()
-    try:
-        photo =  cur.execute(f"SELECT photo FROM users WHERE username='{username}'").fetchone()[0]
-    except sqlite3.Error as e:
-        print(f"An error occurred: {e}")
-        photo = None
+    photo =  cur.execute(f"SELECT profilepic FROM user WHERE username='{username}'").fetchone()[0]
     finally: 
          cur.close()
          db.commit()
          db.close()
     return photo
+
+# Function to save an image to the database
+def save_image_to_db(username, image_path):
+    with open(image_path, 'rb') as file:
+        bdata = file.read()
+    db = sqlite3.connect(DB_FILE)
+    cur = db.cursor()
+    cur.execute(f"UPDATE users SET profile_picture = ? WHERE username = ?",(bdata, username))
+    db.commit()
+    db.close()
+
 
 def getAllUsers():
     db = sqlite3.connect(DB_FILE)
@@ -160,7 +169,6 @@ def getAllUsers():
          db.commit()
          db.close()
     return users
-
 
 
 #error?

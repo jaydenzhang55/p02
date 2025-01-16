@@ -24,6 +24,11 @@ app = Flask(__name__)
 secret = os.urandom(32)
 app.secret_key = secret
 
+##image configuration
+upload_folder = 'static/images'
+allowed_extensions = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['upload_folder'] = upload_folder
+
 keys = ["key_goFile.txt", "key_googleFirebase.txt"]
 for i in range(len(keys)):
     file = open("app/keys/" + keys[i], "r")
@@ -87,6 +92,7 @@ def logout():
     session.pop("username", None)
     session.pop("password", None)
     session.pop("name", None)
+    session.pop("profilepic", None)
     return redirect(url_for("home"))
 
 @app.route("/signup", methods=['GET', 'POST'])
@@ -96,13 +102,15 @@ def signup():
     elif request.method == "POST":
         username = request.form['username']
         password = request.form['pw']
-        name = request.form['name']
+        file = request.files['profile_pic']
+        name = request.form['name']       
         user = db.getUser(username)
         if user is None:
-            db.addUser(name, username, password)
+            db.addUser(name, username, password, profilepic)
             session["name"] = name
             session["username"] = username
             session["password"] = password
+            session["profilepic"] = profile_pic
             return redirect('/login')
         else:
             return render_template('signUp.html', message="Username already exists")
