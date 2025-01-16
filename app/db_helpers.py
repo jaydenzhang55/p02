@@ -32,10 +32,11 @@ def videoTable():
 
 def addUser(name, username, password):
     try:
-        default = convertToBinaryData("./static/images/default.svg")
+        with open("./static/images/default.svg", "rb") as file:
+            default = file.read()
         db = sqlite3.connect(DB_FILE)
         cur = db.cursor()
-        cur.execute("INSERT INTO users (name, username, password, photo) VALUES (?, ?, ?, ?)", (name, username, password, photo))
+        cur.execute("INSERT INTO users (name, username, password, photo) VALUES (?, ?, ?, ?)", (name, username, password, default))
     except sqlite3.Error as e:
         print(f"Database error: {e}")
     finally:
