@@ -8,5 +8,8 @@ Flask==3.0.3
 itsdangerous==2.2.0
 Jinja2==3.1.4
 MarkupSafe==2.1.5
+requests==2.32.3
+selenium==4.27.1
 soupsieve==2.6
 Werkzeug==3.0.4
+
