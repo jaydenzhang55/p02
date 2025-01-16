@@ -106,7 +106,7 @@ def signup():
         name = request.form['name']       
         user = db.getUser(username)
         if user is None:
-            db.addUser(name, username, password, profilepic)
+            db.addUser(name, username, password, profile_pic)
             session["name"] = name
             session["username"] = username
             session["password"] = password
