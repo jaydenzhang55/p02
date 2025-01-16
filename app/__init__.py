@@ -12,6 +12,7 @@ import time
 from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
 import db_helpers as db
 import requests
+import platform
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -153,7 +154,22 @@ def reels():
         })
         
         # HAVE TO CHANGE THIS TO WHICHEVER COMPUTER YOUR USING :SOB:
-        service = Service('app/chromedriver-mac-arm64/chromedriver')  
+        info = platform.platform()
+        service = ''
+        
+        if 'mac' in info:
+            if 'arm64' in info:
+                service = Service('app/selenium/chromedriver-mac-arm64/chromedriver')
+            else:
+                service = Service('app/selenium/chromedriver-mac-x64/chromedriver')
+        elif 'win' in info:
+            if '32' in info:
+                service = Service('app/selenium/chromedriver-win32/chromedriver')
+            else:
+                service = Service('app/selenium/chromedriver-win64/chromedriver')
+        else:
+            service = Service('app/selenium/chromedriver-linux64/chromedriver')
+            
         driver = webdriver.Chrome(service=service, options=chrome_options)
 
         try:
@@ -230,7 +246,7 @@ def reels():
             combined_videos = list(zip(newListOfUrls, listOfUploaders))
         finally:
             driver.quit()  # exits the driver
-    print(newListOfUrls) # debugging statement
+        print(newListOfUrls) # debugging statement
     return render_template("reels.html", combined_videos=combined_videos)
 
 @app.route('/upload', methods=['GET', 'POST'])
