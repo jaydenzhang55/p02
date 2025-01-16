@@ -124,11 +124,7 @@ def getHash(username):
 def getAllPhotos():
     db = sqlite3.connect(DB_FILE)
     cur = db.cursor()
-    try:
-        photos = cur.execute("SELECT profilepic FROM users").fetchall()
-    except sqlite2.Error as e:
-        print(f"An error occurred: {e}")
-        photos = None
+    photos = cur.execute("SELECT profilepic FROM users").fetchall()
     finally:
         cur.close()
         db.commit()
