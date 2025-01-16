@@ -16,14 +16,14 @@
 
     <div class="max-w-4xl mx-auto p-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {% if listofUrls %}
-            {% for url in listofUrls %}
+            {% if combined_videos %}
+            {% for url, uploader in combined_videos %}
             <div class="bg-white shadow rounded-lg overflow-hidden">
                 <video class="w-full h-64 object-cover" controls>
-                    <source src="{{ url }}" type="video/mp4">
+                    <source src="/static/videos/{{ url }}" type="video/mp4">
                 </video>
                 <div class="p-4">
-                    <p class="text-sm text-gray-600">Uploaded by: {{ }}</p>
+                    <p class="text-sm text-gray-600">Uploaded by: {{ uploader }}</p>
                 </div>
             </div>
             {% endfor %}
