@@ -52,6 +52,7 @@ def signed_in():
 
 def check_user(username):
     user = db.getUser(username)
+    print(user)
     if user is None:
         return False
     return user[0] == username
@@ -102,15 +103,13 @@ def signup():
     elif request.method == "POST":
         username = request.form['username']
         password = request.form['pw']
-        file = request.files['profile_pic']
         name = request.form['name']       
         user = db.getUser(username)
         if user is None:
-            db.addUser(name, username, password, profilepic)
+            db.addUser(name, username, password)
             session["name"] = name
             session["username"] = username
             session["password"] = password
-            session["profilepic"] = profile_pic
             return redirect('/login')
         else:
             return render_template('signUp.html', message="Username already exists")
