@@ -103,7 +103,7 @@ def signup():
     elif request.method == "POST":
         username = request.form['username']
         password = request.form['pw']
-        name = request.form['name']       
+        name = request.form['name']      
         user = db.getUser(username)
         if user is None:
             db.addUser(name, username, password)
