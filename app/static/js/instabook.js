@@ -138,6 +138,8 @@ setInterval(displayPastChatsList, 1000);
 
 
 let chatNow = async function(){
+    let current = document.getElementById("chatContent");
+    current.innerHTML = '';
     let chat = document.getElementById(focusPerson);
     let user = chat.textContent;
     displayPastChat(user, focusPerson);
@@ -171,7 +173,7 @@ let displayPastChat = async function(userID, chatID){
                 else{
                     newMessage.classList.add('bg-sky-400', 'text-white', 'border-sky-400');
                 }
-                newMessage.setAttribute('id', messageData.id)
+                newMessage.setAttribute('id', doc.id);
                 chatContent.appendChild(newMessage);
             }
         });
