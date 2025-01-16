@@ -58,19 +58,9 @@ let showContactList = function(){
     list.style.display='';
 }
 
-/*
-let showProfileList = function(){
-  const list = document.getElementById('Profile');
-  list.style.display = '';
-}
-*/
-
 addChatButton.addEventListener('click', showContactList);
 // adding chat
 
-
-//findProfileButton.addEventListener('click', showProfileList);
-// adding profile to recently viewed
 
 let addChat = function(other) {
     let fireChat = createNewChat(other);
@@ -81,11 +71,6 @@ let addChat = function(other) {
     chatlist.appendChild(chat);
     const contact  = document.getElementById('Contact');
     contact.style.display='none';
-}
-
-let findProfile = function(other){
-  const profList = document.getElementById('profileList');
-  const prof = document.createElement('li');
 }
 
 let createNewChat = async function(other){
@@ -153,6 +138,8 @@ setInterval(displayPastChatsList, 1000);
 
 
 let chatNow = async function(){
+    let current = document.getElementById("chatContent");
+    current.innerHTML = '';
     let chat = document.getElementById(focusPerson);
     let user = chat.textContent;
     displayPastChat(user, focusPerson);
@@ -163,7 +150,7 @@ setInterval(chatNow, 900);
 
 let displayPastChat = async function(userID, chatID){
     const chatContent = document.getElementById("chatContent");
-    chatContent.innerHTML = "";
+    const pastMessages = chatContent.getElementsByTagName('li');
     const chatName = document.getElementById('chatName');
     chatName.textContent = userID;
     const chatDocRef = doc(db, "chats", chatID);
@@ -172,17 +159,23 @@ let displayPastChat = async function(userID, chatID){
     onSnapshot(q, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
             const messageData = doc.data();
-            const newMessage = document.createElement("li");
-            newMessage.textContent = messageData.text;
-            newMessage.classList.add('p-3', 'max-w-xs', 'text-wrap', 'border', 'rounded-xl');
-            if (messageData.user === thisUser){
-                newMessage.classList.add('bg-gray-400', 'text-black', 'ml-auto', 'border-gray-400');
-                console.log("this");
+            let displayOldMessages = true;
+            if(!pastMessages.length<1){
+                displayOldMessages = !(!!Array.from(pastMessages).find(element => element.getAttribute('id') === doc.id));
             }
-            else{
-                newMessage.classList.add('bg-sky-400', 'text-white', 'border-sky-400');
+            if(displayOldMessages){
+                const newMessage = document.createElement("li");
+                newMessage.textContent = messageData.text;
+                newMessage.classList.add('p-3', 'max-w-xs', 'text-wrap', 'border', 'rounded-xl');
+                if (messageData.user === thisUser){
+                    newMessage.classList.add('bg-gray-400', 'text-black', 'ml-auto', 'border-gray-400');
+                }
+                else{
+                    newMessage.classList.add('bg-sky-400', 'text-white', 'border-sky-400');
+                }
+                newMessage.setAttribute('id', doc.id);
+                chatContent.appendChild(newMessage);
             }
-            chatContent.appendChild(newMessage);
         });
         scrollToBottom();
     }, (error) => {
