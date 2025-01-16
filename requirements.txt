@@ -1,5 +1,4 @@
 bcrypt==4.2.1
-beautifulsoup4==4.12.3
 blinker==1.8.2
 bs4==0.0.2
 certifi==2024.12.14
