@@ -8,15 +8,10 @@ Target Ship Date: 2025-01-15
 '''
 
 import os
-import random
 import time
-import urllib.request
-import json
 from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
 import db_helpers as db
-import sqlite3
 import requests
-from bs4 import BeautifulSoup
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
