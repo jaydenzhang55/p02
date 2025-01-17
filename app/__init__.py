@@ -154,6 +154,8 @@ def search():
     if request.method == 'POST':
         return {"users": users}
     return render_template('search.html', users = users)
+
+
                           
                           
 @app.route("/reels", methods=['GET', 'POST'])
