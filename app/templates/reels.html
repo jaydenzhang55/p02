@@ -49,7 +49,7 @@
                     {% if combined_videos %}
                     {% for url, uploader in combined_videos %}
                     <div class="bg-white shadow rounded-lg overflow-hidden">
-                        <video class="w-full h-64 object-cover" controls>
+                        <video class="w-full h-100 object-cover" controls>
                             <source src="/static/videos/{{ url }}" type="video/mp4">
                         </video>
                         <div class="p-4">
