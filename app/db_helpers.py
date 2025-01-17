@@ -10,30 +10,27 @@ cur = db.cursor()
 
 
 cur.execute('''
-CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    username TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL,
-    photo BLOB NOT NULL
-);
-''')
-
-cur.execute("CREATE TABLE IF NOT EXISTS videos(id INTEGER PRIMARY KEY, userId INTEGER, videoUrl TEXT)")
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                username TEXT NOT NULL UNIQUE,
+                password TEXT NOT NULL,
+                photo TEXT NOT NULL)
+            ''')
+cur.execute('''
+            CREATE TABLE IF NOT EXISTS videos (
+                id INTEGER PRIMARY KEY, 
+                userId INTEGER, 
+                videoUrl TEXT)
+            ''')
 db.commit()
 db.close()
 
 # User Helpers
-
-
-def userTable():
-    cur.execute("CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT NOT NULL, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL)")
-    db.commit()
-
+    
 def addUser(name, username, password):
     try:
-        with open("app/static/images/default.svg", "rb") as file:
-            default = file.read()
+        default = "app/static/images/default.svg"
         db = sqlite3.connect(DB_FILE)
         cur = db.cursor()
         cur.execute("INSERT INTO users (name, username, password, photo) VALUES (?, ?, ?, ?)", (name, username, password, default))
@@ -71,9 +68,9 @@ def getUser(username):
         print(f"An error occurred: {e}")
         user = None
     finally: 
-         cur.close()
-         db.commit()
-         db.close()
+        cur.close()
+        db.commit()
+        db.close()
     return user
 
 def getName(username):
@@ -85,9 +82,9 @@ def getName(username):
         print(f"An error occurred: {e}")
         name = None
     finally: 
-         cur.close()
-         db.commit()
-         db.close()
+        cur.close()
+        db.commit()
+        db.close()
     return name
 
 def getId(username):
@@ -99,9 +96,9 @@ def getId(username):
         print(f"An error occurred: {e}")
         Id = None
     finally: 
-         cur.close()
-         db.commit()
-         db.close()
+        cur.close()
+        db.commit()
+        db.close()
     return Id
 
 def getHash(username):
@@ -113,16 +110,16 @@ def getHash(username):
         print(f"An error occurred: {e}")
         Hash = None
     finally: 
-         cur.close()
-         db.commit()
-         db.close()
+        cur.close()
+        db.commit()
+        db.close()
     return Hash
 
 def getAllPhotos():
     try:
         db = sqlite3.connect(DB_FILE)
         cur = db.cursor()
-        photos = cur.execute("SELECT profilepic FROM users").fetchall()
+        photos = cur.execute("SELECT photo FROM users").fetchall()
     except sqlite3.Error as e:
         print(f"An error occurred: {e}")
         photos = None
@@ -136,23 +133,22 @@ def getPhoto(username):
     try:
         db = sqlite3.connect(DB_FILE)
         cur = db.cursor()
-        photo =  cur.execute(f"SELECT profilepic FROM user WHERE username='{username}'").fetchone()[0]
-    except sqlite2.Error as e:
+        photo = cur.execute("SELECT photo FROM users WHERE username = ?", (username,)).fetchone()
+    except sqlite3.Error as e:
         print(f"An error occurred: {e}")
-        photos = None
+        photo = None
     finally: 
-         cur.close()
-         db.commit()
-         db.close()
+        cur.close()
+        db.commit()
+        db.close()
     return photo
 
 # Function to save an image to the database
-def save_image_to_db(username, image_path):
-    with open(image_path, 'rb') as file:
-        bdata = file.read()
+def saveImageToDB(username, filePath):
     db = sqlite3.connect(DB_FILE)
     cur = db.cursor()
-    cur.execute(f"UPDATE users SET profile_picture = ? WHERE username = ?",(bdata, username))
+    cur.execute("UPDATE users SET photo = ? WHERE username = ?",(filePath, username))
+    cur.close()
     db.commit()
     db.close()
 
@@ -166,9 +162,9 @@ def getAllUsers():
         print(f"An error occurred: {e}")
         users = None
     finally: 
-         cur.close()
-         db.commit()
-         db.close()
+        cur.close()
+        db.commit()
+        db.close()
     return users
 
 

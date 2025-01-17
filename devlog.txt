@@ -34,6 +34,9 @@ Added readme for keys, explaining functionality and requirements for each
 margieC -- 2025-01-13 10:50:
 Started working on profile page, adding the proper redirects
 
+dannyH -- 2025-01-13 23:00:
+Able to add users to open chats with, both in firebase and appears in site
+
 suhanaK -- 2025-01-13 11:47:
 worked on search html, update search py file
 
@@ -43,5 +46,11 @@ Completed the first version of a web scraper. Needs more work to fully test if i
 suhanaK -- 2025-01-14 11:47:
 integrating js for search profile function
 
+dannyH -- 2025-01-14 23:59:
+able to message other users function done
+
 jaydenZ -- 2025-01-15 21:24:
 Finished the web scraper as well as the reels functionality. Works, but takes a while.
+
+dannyH -- 2025-01-15 22:21:
+Polished messaging feature, made display of messages smoother. 

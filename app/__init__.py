@@ -86,6 +86,7 @@ def login():
         session["name"] = db.getName(session['username'])[0]
         session["password"] = request.form.get("pw")
         session["userID"] = db.getId(request.form.get("username"))
+        session["photo"] = db.getPhoto(session["username"])
         return redirect('/')
     return render_template("signIn.html")
 
@@ -111,6 +112,7 @@ def signup():
             session["name"] = name
             session["username"] = username
             session["password"] = password
+            session["photo"] = db.getPhoto(session["username"])
             return redirect('/login')
         else:
             return render_template('signUp.html', message="Username already exists")
@@ -124,7 +126,7 @@ def search():
     users = [
         {
             "name" : user[0],
-            "profilePic": url_for('static', filename=f'images/{user[1]}'),
+            "profilePic": url_for('static', filename=f'images/{user[0]}'),
             "profileUrl": url_for('profile', username=user[0])
             }
         for user in allUsers
@@ -278,11 +280,47 @@ def uploadReels():
         return redirect(url_for("reels"))
     return "something went wrong pls try again later" 
 
-@app.route("/profile", methods=['GET', 'POST'])
-def profile():
+@app.route("/profile/<username>/edit", methods=['GET', 'POST'])
+def profile(username):
     if not signed_in():
         return redirect(url_for('login'))
-    return render_template("profile.html", name = session["name"])
+    
+    if session["username"] != username:
+        return render_template('profile.html', message="No Access! >:(")
+    
+    if request.method == 'POST':
+        profile = request.files['file']
+        if profile:
+            original = profile.filename
+            if '.' in original:
+                fileExtension = original.rsplit('.', 1)[1].lower()  # grabs the extension
+            else:
+                return render_template('profile.html', message="No file extension found.")
+        
+            imageExtensions = {'jpg', 'jpeg', 'png', 'gif', 'heic', 'bmp', 'webp'}
+            if fileExtension not in imageExtensions:
+                return render_template('profile.html', message="Invalid file type. Only image files are allowed.")
+            
+            filename = f"{session['username']}.{fileExtension}"
+            filePath = os.path.join("app/static/images", filename)
+            profile.save(filePath)
+            db.saveImageToDB(session["username"], filePath)
+            session['photo'] = filePath
+    
+    userPhoto = db.getPhoto(username)
+    if userPhoto:
+        updatedLink = url_for('static', filename=userPhoto[0].replace('app/static/', ''))
+    print(updatedLink)
+    return render_template("profile.html", name = session["username"], profile = updatedLink, editable = True)
+
+@app.route("/profile/<username>", methods=['GET'])
+def view_profile(username):
+    userPhoto = db.getPhoto(username)
+    if not userPhoto:
+        return render_template('profile.html', message="Profile Not Found.")
+    
+    updatedLink = userPhoto[0].replace("app/static/", "../static/")
+    return render_template("profile.html", name = username, profile = updatedLink, editable = False)
 
 @app.route("/messages", methods=['GET', 'POST'])
 def messages():
