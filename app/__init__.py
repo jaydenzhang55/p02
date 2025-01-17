@@ -127,11 +127,13 @@ def search():
             "profilePic": url_for('static', filename=f'images/{user[1]}'),
             "profileUrl": url_for('profile', username=user[0])
             }
-        for user in all_users
+        for user in allUsers
     ]
-    if reqeust.method == 'POST':
+    if request.method == 'POST':
         return {"users": users}
     return render_template('search.html', users = users)
+
+
                           
                           
 @app.route("/reels", methods=['GET', 'POST'])
