@@ -1,6 +1,7 @@
 import sqlite3, requests, os
 from flask import session
 import bcrypt
+import random
 
 #Create SQLite Table, creates if not already made
 DB_FILE = os.path.join(os.path.dirname(__file__), "../database.db")
@@ -80,7 +81,7 @@ def getName(username):
         name = cur.execute(f"SELECT name FROM users WHERE username='{username}'").fetchone()
     except sqlite3.Error as e:
         print(f"An error occurred: {e}")
-        name = None
+        name = ["User " + str(random.randint(1, 10000000000000))]
     finally: 
         cur.close()
         db.commit()
@@ -166,7 +167,6 @@ def getAllUsers():
         db.commit()
         db.close()
     return users
-
 
 #error?
 def hashPassword(password):

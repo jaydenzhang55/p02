@@ -45,36 +45,31 @@
         <div class="flex-1">
             <div class="flex-1 p-6 h-10">
                 <p>Welcome, {{ name }}!</p>
-                <img src="{{ profilePicture }}">
+                <img class="w-6 h-6 rounded-full mx-auto" src="{{ myPhoto }}">
             </div>
 
-            <!-- Main Content -->
             <div class="flex-1 p-6">
                 <div class="flex justify-between items-center">
                     <h2 class="text-xl font-bold">Find friends and accounts you like</h2>
                 </div>
 
-                <!-- Search Bar -->
-                <div class="mt-6">
-                    <input type="text" placeholder="Search"
-                        class="w-full bg-gray-800 p-2 rounded-md text-white focus:outline-none">
-                </div>
-
-                <!-- Recommendations -->
                 <ul class="mt-8 space-y-6">
+                    {% for user in userInfoList %}
                     <li class="flex items-center justify-between">
-                        <div class="flex items-center space-x-4">
-                            <img src="https://via.placeholder.com/50" class="rounded-full" alt="Profile">
-                            <div>
-                                <p class="font-bold">Username</p>
-                                <p class="text-gray-400 text-sm">Instabook recommended</p>
+                        <a href="/profile/{{ user[0] }}">
+                            <div class="flex items-center space-x-4">
+                                <img src="{{user[2]}}" class="w-12 h-12 rounded-full" alt="Profile">
+                                <div>
+                                    <p class="font-bold">{{user[0]}}</p>
+                                    <p class="text-gray-400 text-sm">{{user[1]}}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex items-center">
-                            <button class="w-6 h-6 bg-white rounded-full flex justify-center items-center">✔</button>
-                        </div>
+                            <div class="flex items-center">
+                                <button class="w-6 h-6 bg-white rounded-full flex justify-center items-center">✔</button>
+                            </div>
+                        </a>
                     </li>
-
+                    {% endfor %}
                 </ul>
             </div>
         </div>

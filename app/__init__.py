@@ -68,7 +68,27 @@ def check_password(username, password):
 @app.route("/")
 def home():
     if session.get("username") != None:
-        return render_template("homePage.html", name = session["name"])
+        userList = db.getAllUsers()
+        print(userList)
+        userInfoList = [[]]
+
+        myPhoto = url_for('static', filename=db.getPhoto(session.get("username"))[0].replace('app/static/', ''))
+
+        for user in userList:
+            newUser = user[0]
+            if newUser == session.get("username"):
+                continue
+
+            tempList = []
+            tempList.append(newUser)
+            tempList.append(db.getName(newUser)[0])
+
+            userPhoto = db.getPhoto(newUser)[0]
+            updatedLink = url_for('static', filename=userPhoto.replace('app/static/', ''))
+            tempList.append(updatedLink)
+            print(tempList)
+            userInfoList.append(tempList)
+        return render_template("homePage.html", name = session["name"], userInfoList = userInfoList, myPhoto = myPhoto)
     return redirect(url_for("signup"))
 
 @app.route("/login", methods=['GET', 'POST'])
