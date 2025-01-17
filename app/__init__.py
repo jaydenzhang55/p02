@@ -162,6 +162,7 @@ def search():
 def reels():
     videos = db.getVideos()  # useful for userID of associated video
     listofUrls = []
+    combined_videos = []  
 
     if videos:
         folder_url = videos[0][0]  # first element contains the shared folder URL
@@ -270,7 +271,8 @@ def reels():
             listOfUploaders = []
             for video in videos:
                 listOfUploaders.append(video[1])
-            combined_videos = list(zip(newListOfUrls, listOfUploaders))
+            if newListOfUrls and listOfUploaders:
+                combined_videos = list(zip(newListOfUrls, listOfUploaders))
         finally:
             driver.quit()  # exits the driver
         print(newListOfUrls) # debugging statement
