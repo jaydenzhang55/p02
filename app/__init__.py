@@ -122,15 +122,18 @@ def signup():
 def search():
     if not signed_in():
         return redirect(url_for('login'))
-    pics = db.getAllPhoto()
     allUsers = db.getAllUsers()
-    pictureslist = []
-    userlist = []
-    for users in allUsers:
-        userlist.append(users[0])
-    for pic in pics:
-        pictureslist.append(pic[0])
-    return render_template('search.html', people=userlist, pictures=pictureslist, user=session['username'])
+    users = [
+        {
+            "name" : user[0],
+            "profilePic": url_for('static', filename=f'images/{user[1]}'),
+            "profileUrl": url_for('profile', username=user[0])
+            }
+        for user in all_users
+    ]
+    if reqeust.method == 'POST':
+        return {"users": users}
+    return render_template('search.html', users = users)
                           
                           
 @app.route("/reels", methods=['GET', 'POST'])
