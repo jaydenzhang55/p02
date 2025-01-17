@@ -241,19 +241,34 @@ def reels():
 
             for index, button in enumerate(play_buttons): # enumerate allows me to access index
                 try:
-                    print(f"Clicking Play button {index + 1}")
-                    button.click()  # click the button to play the video
-                    
-                    video = WebDriverWait(driver, 20).until( # finds a video tag
-                        EC.presence_of_element_located((By.TAG_NAME, "video"))
-                    )
+                    if (len(play_buttons) == 1): # edge case lol
+                        print(f"Clicking Play button {index + 1}")
+                        video = WebDriverWait(driver, 20).until( # finds a video tag
+                            EC.presence_of_element_located((By.TAG_NAME, "video"))
+                        )
 
-                    source = video.find_element(By.TAG_NAME, "source") # finds the source tag in the video tag
-                    video_src = source.get_attribute("src") # finds the src attribute in the source tag
+                        source = video.find_element(By.TAG_NAME, "source") # finds the source tag in the video tag
+                        video_src = source.get_attribute("src") # finds the src attribute in the source tag
 
-                    if video_src: # if it's present, it adds the url to a list
-                        listofUrls.append(video_src)
-                        print(f"Extracted video src: {video_src}")
+                        if video_src: # if it's present, it adds the url to a list
+                            listofUrls.append(video_src)
+                            print(f"Extracted video src: {video_src}")
+                        
+                        close_buttons[index].click() # presses the close button to repeat for the next play button
+                    else:
+                        print(f"Clicking Play button {index + 1}")
+                        button.click()  # click the button to play the video
+                        
+                        video = WebDriverWait(driver, 20).until( # finds a video tag
+                            EC.presence_of_element_located((By.TAG_NAME, "video"))
+                        )
+
+                        source = video.find_element(By.TAG_NAME, "source") # finds the source tag in the video tag
+                        video_src = source.get_attribute("src") # finds the src attribute in the source tag
+
+                        if video_src: # if it's present, it adds the url to a list
+                            listofUrls.append(video_src)
+                            print(f"Extracted video src: {video_src}")
                     
                     close_buttons[index].click() # presses the close button to repeat for the next play button
                 except Exception as e:
