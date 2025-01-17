@@ -54,3 +54,7 @@ Finished the web scraper as well as the reels functionality. Works, but takes a 
 
 dannyH -- 2025-01-15 22:21:
 Polished messaging feature, made display of messages smoother. 
+
+suhanaK -- 2025-01-16 23:59
+Created new html for viewing other profiles, pfp updates are reflected to all to users, finalized everythign search function, a little change to homepage
+
