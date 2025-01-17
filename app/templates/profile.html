@@ -42,12 +42,11 @@
             </ul>
         </nav>
 
-        
         <div class="flex-1 p-10">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-4">{{ name }}</h2>
                 <img src="{{ profile }}" id="pfp" class="w-40 h-40 rounded-full mx-auto" alt="Profile Picture">
-                { % if editable % }
+                {% if editable %}
                 <form method="POST" enctype="multipart/form-data" class="mt-6">
                     <label for="file" class="block mb-2">Upload a new profile picture:</label>
                     <input type="file" name="file" id="file" accept="image/*" class="block mb-4">

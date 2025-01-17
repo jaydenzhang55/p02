@@ -284,7 +284,7 @@ def profile(username):
         return redirect(url_for('login'))
     
     if session["username"] != username:
-        return "Unauthorized access.", 403
+        return render_template('profile.html', message="No Access! >:(")
     
     if request.method == 'POST':
         profile = request.files['file']
@@ -304,7 +304,10 @@ def profile(username):
             profile.save(filePath)
             db.saveImageToDB(session["username"], filePath)
             session['photo'] = filePath
-    updatedLink = db.getPhoto(session["username"])[0].replace("app/static/", "../static/")
+    
+    userPhoto = db.getPhoto(username)
+    if userPhoto:
+        updatedLink = url_for('static', filename=userPhoto[0].replace('app/static/', ''))
     print(updatedLink)
     return render_template("profile.html", name = session["username"], profile = updatedLink, editable = True)
 
@@ -312,10 +315,10 @@ def profile(username):
 def view_profile(username):
     userPhoto = db.getPhoto(username)
     if not userPhoto:
-        return "Profile not found.", 404
+        return render_template('profile.html', message="Profile Not Found.")
     
     updatedLink = userPhoto[0].replace("app/static/", "../static/")
-    return render_template("profile.html", name=username, profile=updatedLink, editable=False)
+    return render_template("profile.html", name = username, profile = updatedLink, editable = False)
 
 @app.route("/messages", methods=['GET', 'POST'])
 def messages():
