@@ -278,10 +278,13 @@ def uploadReels():
         return redirect(url_for("reels"))
     return "something went wrong pls try again later" 
 
-@app.route("/profile", methods=['GET', 'POST'])
-def profile():
+@app.route("/profile/<username>/edit", methods=['GET', 'POST'])
+def profile(username):
     if not signed_in():
         return redirect(url_for('login'))
+    
+    if session["username"] != username:
+        return "Unauthorized access.", 403
     
     if request.method == 'POST':
         profile = request.files['file']
@@ -303,7 +306,16 @@ def profile():
             session['photo'] = filePath
     updatedLink = db.getPhoto(session["username"])[0].replace("app/static/", "../static/")
     print(updatedLink)
-    return render_template("profile.html", name = session["username"], profile = updatedLink)
+    return render_template("profile.html", name = session["username"], profile = updatedLink, editable = True)
+
+@app.route("/profile/<username>", methods=['GET'])
+def view_profile(username):
+    userPhoto = db.getPhoto(username)
+    if not userPhoto:
+        return "Profile not found.", 404
+    
+    updatedLink = userPhoto[0].replace("app/static/", "../static/")
+    return render_template("profile.html", name=username, profile=updatedLink, editable=False)
 
 @app.route("/messages", methods=['GET', 'POST'])
 def messages():

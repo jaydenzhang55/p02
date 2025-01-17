@@ -9,7 +9,6 @@
 </head>
 
 <body class="font-sans bg-black text-white">
-    <!-- Sidebar -->
     <div class="flex flex-row h-screen">
         <nav class="w-1/8 min-w-[240px] flex flex-col p-5 bg-gray-900">
             <h1 class="text-white text-3xl font-bold mb-8">Instabook</h1>
@@ -32,7 +31,7 @@
                 </li>
                 <li class="flex items-center space-x-4 p-3 bg-sky-400">
                     <img src="{{ url_for('static', filename='images/default.svg') }}" class="size-5" alt="Profile" />
-                    <a href="/profile" class="text-lg text-white">Profile</a>
+                    <a href="/profile/{{ session['username'] }}/edit" class="text-lg text-white">Profile</a>
                 </li>
                 <li class="flex items-center space-x-4">
                     <form action="/logout" method="post">
@@ -43,10 +42,12 @@
             </ul>
         </nav>
 
+        
         <div class="flex-1 p-10">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-4">{{ name }}</h2>
                 <img src="{{ profile }}" id="pfp" class="w-40 h-40 rounded-full mx-auto" alt="Profile Picture">
+                { % if editable % }
                 <form method="POST" enctype="multipart/form-data" class="mt-6">
                     <label for="file" class="block mb-2">Upload a new profile picture:</label>
                     <input type="file" name="file" id="file" accept="image/*" class="block mb-4">
@@ -54,6 +55,7 @@
                         Update Picture
                     </button>
                 </form>
+                {% endif %}
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
                 <ul class="mt-4 text-green-400">

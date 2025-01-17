@@ -11,7 +11,6 @@
 
 <body class="bg-black text-white font-sans">
     <p data-user='{{user}}' id="user"></p>
-    <!-- Sidebar -->
     <div class="flex flex-row h-screen">
         <nav class="w-1/8 min-w-[240px] flex flex-col p-5 bg-gray-900">
             <h1 class="text-white text-3xl font-bold mb-8">Instabook</h1>
@@ -28,17 +27,18 @@
                     <span class="text-xl">🎥</span>
                     <a href="/reels" class="text-lg">Reels</a>
                 </li>
-                <li class="flex items-center space-x-4 bg-sky-400 p-3">
-                    <span class="text-xl">✉️</span>
-                    <a href="/messages" class="text-lg text-white">Messages</a>
-                </li>
                 <li class="flex items-center space-x-4 p-2">
-                    <img src="{{ url_for('static', filename='images/default.svg') }}" class="size-5" alt="Profile"/>
-                    <a href="/profile" class="text-lg">Profile</a>
+                    <span class="text-xl">✉️</span>
+                    <a href="/messages" class="text-lg">Messages</a>
                 </li>
-                <li class = "flex items-center space-x-4">
+                <li class="flex items-center space-x-4 p-3 bg-sky-400">
+                    <img src="{{ url_for('static', filename='images/default.svg') }}" class="size-5" alt="Profile" />
+                    <a href="/profile/{{ session['username'] }}/edit" class="text-lg text-white">Profile</a>
+                </li>
+                <li class="flex items-center space-x-4">
                     <form action="/logout" method="post">
-                        <input type="submit" value="Log Out" name="logOut" class="text-lg text-white bg-transparent border-none cursor-pointer hover:bg-sky-300 hover:border-sky-500 rounded-xl px-4 py-2" />
+                        <input type="submit" value="Log Out" name="logOut"
+                            class="text-lg text-white bg-transparent border-none cursor-pointer hover:bg-sky-300 hover:border-sky-500 rounded-xl px-4 py-2" />
                     </form>
                 </li>
             </ul>
