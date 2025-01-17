@@ -3,8 +3,8 @@ Jayden Zhang, Margie Cao, Danny Huang, Suhana Kumar
 H1N1
 SoftDev
 P02 - Instabook
-Time Spent:
-Target Ship Date: 2025-01-15
+Time Spent: 48 hours
+Target Ship Date: 2025-01-17
 '''
 
 import os

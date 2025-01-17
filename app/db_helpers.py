@@ -1,3 +1,12 @@
+'''
+Jayden Zhang, Margie Cao, Danny Huang, Suhana Kumar
+H1N1
+SoftDev
+P02 - Instabook
+Time Spent: 48 hours
+Target Ship Date: 2025-01-17
+'''
+
 import sqlite3, requests, os
 from flask import session
 import bcrypt
