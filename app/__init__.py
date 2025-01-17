@@ -86,6 +86,7 @@ def login():
         session["name"] = db.getName(session['username'])[0]
         session["password"] = request.form.get("pw")
         session["userID"] = db.getId(request.form.get("username"))
+        session["photo"] = db.getPhoto(session["username"])
         return redirect('/')
     return render_template("signIn.html")
 
@@ -111,6 +112,7 @@ def signup():
             session["name"] = name
             session["username"] = username
             session["password"] = password
+            session["photo"] = db.getPhoto(session["username"])
             return redirect('/login')
         else:
             return render_template('signUp.html', message="Username already exists")
@@ -127,7 +129,7 @@ def search():
     for users in allUsers:
         userlist.append(users[0])
     for pic in pics:
-        pitcureslist.append(pic[0])
+        pictureslist.append(pic[0])
     return render_template('search.html', people=userlist, pictures=pictureslist, user=session['username'])
                           
                           
@@ -277,7 +279,28 @@ def uploadReels():
 def profile():
     if not signed_in():
         return redirect(url_for('login'))
-    return render_template("profile.html", name = session["name"])
+    
+    if request.method == 'POST':
+        profile = request.files['file']
+        if profile:
+            original = profile.filename
+            if '.' in original:
+                fileExtension = original.rsplit('.', 1)[1].lower()  # grabs the extension
+            else:
+                return render_template('profile.html', message="No file extension found.")
+        
+            imageExtensions = {'jpg', 'jpeg', 'png', 'gif', 'heic', 'bmp', 'webp'}
+            if fileExtension not in imageExtensions:
+                return render_template('profile.html', message="Invalid file type. Only image files are allowed.")
+            
+            filename = f"{session['username']}.{fileExtension}"
+            filePath = os.path.join("app/static/images", filename)
+            profile.save(filePath)
+            db.saveImageToDB(session["username"], filePath)
+            session['photo'] = filePath
+    updatedLink = db.getPhoto(session["username"])[0].replace("app/static/", "../static/")
+    print(updatedLink)
+    return render_template("profile.html", name = session["username"], profile = updatedLink)
 
 @app.route("/messages", methods=['GET', 'POST'])
 def messages():
