@@ -70,7 +70,7 @@ def home():
     if session.get("username") != None:
         userList = db.getAllUsers()
         print(userList)
-        userInfoList = [[]]
+        userInfoList = []
 
         myPhoto = url_for('static', filename=db.getPhoto(session.get("username"))[0].replace('app/static/', ''))
 
@@ -151,6 +151,7 @@ def search():
             }
         for user in allUsers
     ]
+    
     if request.method == 'POST':
         return {"users": users}
     return render_template('search.html', users = users)
@@ -297,7 +298,7 @@ def uploadReels():
 
     if gofile_data['status'] == 'ok':
         gofileUrl = gofile_data['data']['downloadPage']
-        db.uploadVideo(session.get("userID"), gofileUrl)
+        db.uploadVideo(session.get("userID")[0], gofileUrl)
         print(db.getVideos())
         return redirect(url_for("reels"))
     return "something went wrong pls try again later" 
