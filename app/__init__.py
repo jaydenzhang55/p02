@@ -143,21 +143,35 @@ def search():
     if not signed_in():
         return redirect(url_for('login'))
     allUsers = db.getAllUsers()
+    current_username = session.get("username")
+    filteredUsers = [user for user in allUsers if user[0] != current_username]
     users = [
         {
             "name" : user[0],
             "profilePic": url_for('static', filename=db.getPhoto(user[0])[0].replace('app/static/', '')),
-            "profileUrl": url_for('profile', username=user[0])
+            "profileUrl": url_for('view_profile', username=user[0]) 
             }
-        for user in allUsers
+        for user in filteredUsers
     ]
     
     if request.method == 'POST':
         return {"users": users}
     return render_template('search.html', users = users)
 
+@app.route("/view_profile/<username>", methods=['GET'])
+def view_profile(username):
+    if not signed_in():
+        return redirect(url_for('login'))
+    
+    userPhoto = db.getPhoto(username)
+    if not userPhoto:
+        return render_template('profile.html', message="Profile Not Found.")
+    
+    updatedLink = url_for('static', filename=userPhoto[0].replace("app/static/", ""))
+    name = db.getName(username)[0]
+    return render_template("viewProfile.html", name=name, profile=updatedLink)
 
-                          
+                       
                           
 @app.route("/reels", methods=['GET', 'POST'])
 def reels():
@@ -336,14 +350,14 @@ def profile(username):
     print(updatedLink)
     return render_template("profile.html", name = session["username"], profile = updatedLink, editable = True)
 
-@app.route("/profile/<username>", methods=['GET'])
-def view_profile(username):
-    userPhoto = db.getPhoto(username)
-    if not userPhoto:
-        return render_template('profile.html', message="Profile Not Found.")
+# @app.route("/profile/<username>", methods=['GET'])
+# def view_profile(username):
+#     userPhoto = db.getPhoto(username)
+#     if not userPhoto:
+#         return render_template('profile.html', message="Profile Not Found.")
     
-    updatedLink = userPhoto[0].replace("app/static/", "../static/")
-    return render_template("profile.html", name = username, profile = updatedLink, editable = False)
+#     updatedLink = userPhoto[0].replace("app/static/", "../static/")
+#     return render_template("profile.html", name = username, profile = updatedLink, editable = False)
 
 @app.route("/messages", methods=['GET', 'POST'])
 def messages():
