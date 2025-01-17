@@ -43,13 +43,13 @@
         </nav>
 
         <div class="flex-1 p-10">
-            <div class="text-center">
+            <div class="flex flex-col justify-between items-center gap-y-3">
                 <h2 class="text-4xl font-bold mb-4">{{ name }}</h2>
                 <img src="{{ profile }}" id="pfp" class="w-40 h-40 rounded-full mx-auto" alt="Profile Picture">
                 {% if editable %}
-                <form method="POST" enctype="multipart/form-data" class="mt-6">
-                    <label for="file" class="block mb-2">Upload a new profile picture:</label>
-                    <input type="file" name="file" id="file" accept="image/*" class="block mb-4">
+                <form method="POST" enctype="multipart/form-data" class="flex flex-col mt-6 justify-between place-items-center h-full">
+                    <label for="file" class="mb-2">Upload a new profile picture:</label>
+                    <input type="file" name="file" id="file" accept="image/*" class="mb-4 justify-center">
                     <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded">
                         Update Picture
                     </button>

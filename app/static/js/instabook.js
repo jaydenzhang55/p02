@@ -168,7 +168,7 @@ let displayPastChat = async function(userID, chatID){
                 newMessage.textContent = messageData.text;
                 newMessage.classList.add('p-3', 'max-w-xs', 'text-wrap', 'border', 'rounded-xl');
                 if (messageData.user === thisUser){
-                    newMessage.classList.add('bg-gray-400', 'text-black', 'ml-auto', 'border-gray-400');
+                    newMessage.classList.add('bg-gray-300', 'text-black', 'ml-auto', 'border-gray-300');
                 }
                 else{
                     newMessage.classList.add('bg-sky-400', 'text-white', 'border-sky-400');
