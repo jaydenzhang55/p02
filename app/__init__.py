@@ -146,7 +146,7 @@ def search():
     users = [
         {
             "name" : user[0],
-            "profilePic": url_for('static', filename=f'images/{user[0]}'),
+            "profilePic": url_for('static', filename=db.getPhoto(user[0])[0].replace('app/static/', '')),
             "profileUrl": url_for('profile', username=user[0])
             }
         for user in allUsers
