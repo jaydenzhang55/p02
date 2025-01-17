@@ -116,6 +116,7 @@ def logout():
     session.pop("password", None)
     session.pop("name", None)
     session.pop("profilepic", None)
+    session.pop('userID', None)
     return redirect(url_for("home"))
 
 @app.route("/signup", methods=['GET', 'POST'])
@@ -133,6 +134,7 @@ def signup():
             session["username"] = username
             session["password"] = password
             session["photo"] = db.getPhoto(session["username"])
+            session["userID"] = db.getId(request.form.get("username"))
             return redirect('/login')
         else:
             return render_template('signUp.html', message="Username already exists")
