@@ -25,17 +25,17 @@
                 <span class="text-xl">🔍</span>
                 <a href="/search" class="text-lg">Search</a>
             </li>
-            <li class="flex items-center space-x-4 p-2">
+            <li class="flex items-center space-x-4 p-3 bg-sky-400">
                 <span class="text-xl">🎥</span>
-                <a href="/reels" class="text-lg">Reels</a>
+                <a href="/reels" class="text-lg text-white">Reels</a>
             </li>
             <li class="flex items-center space-x-4 p-2">
                 <span class="text-xl">✉️</span>
                 <a href="/messages" class="text-lg">Messages</a>
             </li>
-            <li class="flex items-center space-x-4 p-3 bg-sky-400">
+            <li class="flex items-center space-x-4 p-2">
                 <img src="{{ url_for('static', filename='images/default.svg') }}" class="size-5" alt="Profile" />
-                <a href="/profile/{{ session['username'] }}/edit" class="text-lg text-white">Profile</a>
+                <a href="/profile/{{ session['username'] }}/edit" class="text-lg">Profile</a>
             </li>
             <li class="flex items-center space-x-4">
                 <form action="/logout" method="post">
